@@ -1,4 +1,4 @@
-# babel-plugin-transform-negative-indices
+# babel-plugin-transform-negative-indices (WIP)
 
 Turn negative array indices into offsets from the end of the array.
 
