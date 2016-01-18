@@ -9,14 +9,15 @@ function trim(str) {
 }
 
 describe('babel transform plugin', () => {
-  it('should transform negative array indices', () => {
-    const testDir = path.join(__dirname, 'negative-indices');
-    const actual = transformFileSync(path.join(testDir, 'actual.js'), {
-      plugins: [plugin]
-    }).code;
-    const expected = fs.readFileSync(path.join(testDir, 'expected.js')).toString();
-
-    console.log('rendered', actual);
-    assert.equal(trim(actual), trim(expected));
-  });
+  for(let testName of fs.readdirSync(path.join(__dirname, 'fixtures'))) {
+    it(`should transform ${testName}`, () => {
+      const testDir = path.join(__dirname, 'fixtures', testName);
+      const actual = transformFileSync(path.join(testDir, 'actual.js'), {
+        plugins: [plugin]
+      }).code;
+      const expected = fs.readFileSync(path.join(testDir, 'expected.js')).toString();
+      assert.equal(trim(actual), trim(expected));
+    });
+  }
+  
 });
